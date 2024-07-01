@@ -5,6 +5,7 @@ import {
   SetStateAction,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from 'react';
@@ -35,8 +36,8 @@ type MovieContextType = {
   query: string;
   loadMovies: () => void;
   setOpenFilterPanel: Dispatch<SetStateAction<boolean>>;
+  setQuery: Dispatch<SetStateAction<string>>;
   setAdult: Dispatch<SetStateAction<boolean>>;
-  searchMovie: (query: string) => void;
 };
 
 const MovieContext = createContext<MovieContextType>({
@@ -48,7 +49,7 @@ const MovieContext = createContext<MovieContextType>({
   loadMovies: () => null,
   setOpenFilterPanel: () => false,
   setAdult: () => false,
-  searchMovie: (query: string) => query,
+  setQuery: () => '',
 });
 
 const MovieProvider = ({ children }: { children: ReactNode }) => {
@@ -70,42 +71,37 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
           (a: { voteCount: number }, b: { voteCount: number }): any => b.voteCount - a.voteCount
         );
 
-      setMovies(moviesParsed);
       setMoviesCache(moviesParsed);
+      setMovies(moviesParsed);
     });
   }, [adult, makeRequest]);
 
-  const searchMovie = useCallback(
-    (q: string) => {
-      setQuery(q);
+  const searchMovie = useCallback(() => {
+    if (!query) {
+      setMovies(moviesCache);
+      return;
+    }
 
-      if (!q) {
-        setMovies(moviesCache);
-        return;
-      }
+    const matches: Movie[] = moviesCache.filter((i) => i.title.toLowerCase() === query);
 
-      const matches: Movie[] = movies.filter((i) => i.title.toLowerCase() === query);
+    if (matches.length) {
+      setMovies(matches);
+      return;
+    }
 
-      if (matches.length) {
-        setMovies(matches);
-        return;
-      }
+    makeRequest({
+      method: 'get',
+      url: `search/movie?query=${query}&include_adult=${adult ? 'true' : 'false'}`,
+    }).then(({ results }) => {
+      const moviesParsed = results
+        .map(responseToEntity<Movie[]>)
+        .sort(
+          (a: { voteCount: number }, b: { voteCount: number }): any => b.voteCount - a.voteCount
+        );
 
-      makeRequest({
-        method: 'get',
-        url: `search/movie?query=${q}&include_adult=${adult ? 'true' : 'false'}`,
-      }).then(({ results }) => {
-        const moviesParsed = results
-          .map(responseToEntity<Movie[]>)
-          .sort(
-            (a: { voteCount: number }, b: { voteCount: number }): any => b.voteCount - a.voteCount
-          );
-
-        setMovies(moviesParsed);
-      });
-    },
-    [adult, moviesCache, movies]
-  );
+      setMovies(moviesParsed);
+    });
+  }, [adult, moviesCache, query]);
 
   const value = useMemo(
     () => ({
@@ -116,8 +112,8 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
       movies,
       loadMovies,
       setOpenFilterPanel,
-      searchMovie,
       setAdult,
+      setQuery,
     }),
     [
       adult,
@@ -127,10 +123,14 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
       movies,
       loadMovies,
       setOpenFilterPanel,
-      searchMovie,
       setAdult,
+      setQuery,
     ]
   );
+
+  useEffect(() => {
+    searchMovie();
+  }, [searchMovie]);
 
   return (
     <MovieContext.Provider value={value}>

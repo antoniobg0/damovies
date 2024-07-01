@@ -5,12 +5,12 @@ import { useMovie } from '@/providers/MovieProvider';
 import { debounce } from 'lodash';
 
 const FilterPanel = (): JSX.Element => {
-  const { adult, query, openFilterPanel, setOpenFilterPanel, searchMovie, setAdult } = useMovie();
+  const { adult, query, openFilterPanel, setOpenFilterPanel, setQuery, setAdult } = useMovie();
 
   const handleChange = (e: SyntheticEvent) => {
     const { value } = e.target as HTMLInputElement;
 
-    searchMovie(value);
+    setQuery(value);
   };
 
   const debouncedResults = useMemo(() => {
@@ -71,7 +71,7 @@ const FilterPanel = (): JSX.Element => {
                     </div>
                   </div>
 
-                  <div className='mt-4'>
+                  <div className="mt-4">
                     <fieldset className="border-b border-t border-gray-200">
                       <legend className="sr-only">Filter content type</legend>
                       <div className="divide-y divide-gray-200">
@@ -92,7 +92,7 @@ const FilterPanel = (): JSX.Element => {
                               type="checkbox"
                               className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                               defaultChecked={adult}
-                              onClick={() => setAdult(prev => !prev)}
+                              onClick={() => setAdult((prev) => !prev)}
                             />
                           </div>
                         </div>

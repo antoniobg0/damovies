@@ -13,8 +13,9 @@ const AuthContext = createContext<AuthContextType>({});
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [session, setSession] = useState<Auth>();
 
-  // The idea of this context is to fetch user information, however the process to get account_id from tmdb is
-  // quite time wasting.
+  // The initial idea of this context wast to fetch user information, however the process to get account_id from tmdb is
+  // quite complex.
+  // so instead of using that I rely on api token instead.
 
   const value = useMemo(() => ({}), []);
 

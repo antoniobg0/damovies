@@ -52,7 +52,7 @@ const useRequest = (): UseRequest => {
         .catch((err) => {
           setLoading(false);
 
-          toast.error(err.message);
+          toast.error("Error ocurred while requesting");
 
           throw new ResponseError('Network Error', err.message);
         });
