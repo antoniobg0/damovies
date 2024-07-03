@@ -10,7 +10,7 @@
     "plugin:@typescript-eslint/stylistic-type-checked",
     "plugin:react-hooks/recommended",
     "prettier",
-    "react-refresh"
+    // "react-refresh"
   ],
   "parser": "@typescript-eslint/parser",
   "ignorePatterns": [
