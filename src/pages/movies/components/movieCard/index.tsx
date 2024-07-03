@@ -20,7 +20,7 @@ const MovieCard = ({
   return (
     <div
       className="flex items-center justify-center py-8 transition-all duration-200 ease-out scale-100 hover:scale-105"
-      data-testid={`movie-card-${id}`}>
+      data-testid='movie-card'>
       <div className="mx-auto bg-white rounded-3xl shadow-xl">
         <div className="grid rounded-3xl max-w-[370px] shadow-sm bg-slate-100  flex-col overflow-hidden">
           <div className="overflow-hidden w-full">

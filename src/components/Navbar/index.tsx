@@ -34,6 +34,7 @@ const Navbar = (): JSX.Element => {
               </div>
               <div className="mx-auto w-4/6 hidden sm:block">
                 <input
+                  data-testid="navbar-search"
                   id="search"
                   type="text"
                   name="search"

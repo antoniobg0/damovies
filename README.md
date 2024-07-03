@@ -22,3 +22,11 @@
   `npm i`
   
   `npm run build`
+
+
+## Testing
+  `npm run test`
+  
+  With coverage report
+
+  `npm run coverage`
