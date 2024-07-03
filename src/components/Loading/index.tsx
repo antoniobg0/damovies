@@ -1,6 +1,8 @@
 const Loading = () => {
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 animate-pulse">
+    <div
+      className="bg-white rounded-lg shadow-md p-4 animate-pulse"
+      data-testid="loading-component">
       <div className="h-screen bg-white">
         <div className="flex justify-center items-center h-full">
           <img

@@ -18,22 +18,27 @@ const MovieCard = ({
   releaseDate,
 }: MovieCardProps): JSX.Element => {
   return (
-    <div className="flex items-center justify-center py-8">
+    <div
+      className="flex items-center justify-center py-8 transition-all duration-200 ease-out scale-100 hover:scale-105"
+      data-testid={`movie-card-${id}`}>
       <div className="mx-auto bg-white rounded-3xl shadow-xl">
-        <div className="grid rounded-3xl max-w-[370px] shadow-sm bg-slate-100  flex-col">
-          <img
-            src={`https://image.tmdb.org/t/p/original${posterPath}`}
-            width="375"
-            height="auto"
-            className="rounded-t-3xl justify-center grid h-80 object-cover"
-            alt="movie.title"
-          />
+        <div className="grid rounded-3xl max-w-[370px] shadow-sm bg-slate-100  flex-col overflow-hidden">
+          <div className="overflow-hidden w-full">
+            <img
+              src={`https://image.tmdb.org/t/p/original${posterPath}`}
+              width="375px"
+              height="auto"
+              className="rounded-t-3xl justify-center grid h-80 object-cover transition-all duration-50 ease-out scale-100 hover:scale-110"
+              // className="rounded-t-3xl justify-center grid h-80 object-cover"
+              alt={title}
+            />
+          </div>
 
           <div className="group p-6 grid z-10">
             <a
               // in order to go to watch movie or whatever action you want.
               // href={`${id}`}
-              className="group-hover:text-cyan-700 font-bold sm:text-2xl line-clamp-2 h-16">
+              className="group-hover:text-cyan-700 font-bold sm:text-2xl line-clamp-2 h-16 cursor-pointer">
               {title}
             </a>
             <span className="text-slate-400 pt-2 font-semibold">({releaseDate})</span>

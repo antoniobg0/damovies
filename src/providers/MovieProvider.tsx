@@ -61,6 +61,7 @@ const MovieProvider = ({ children }: { children: ReactNode }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
 
   const loadMovies = useCallback(() => {
+    // We can include also an infinite loader passing current page.
     makeRequest({
       method: 'get',
       url: `discover/movie?include_adult=${adult ? 'true' : 'false'}`,

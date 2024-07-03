@@ -10,7 +10,7 @@ const MovieList = ({ movies }: MovieListProps): JSX.Element => {
     return <div className="flex justify-center items-center h-svh">Not results</div>;
   }
   return (
-    <div className="h-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div className="h-full grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
       {movies.map((movie, index) => {
         return (
           <MovieCard

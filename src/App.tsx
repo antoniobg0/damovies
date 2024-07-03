@@ -14,16 +14,20 @@ const App = () => {
 
   if (!isAuth) {
     return (
-      <div className="flex h-svh justify-center items-center">
+      <div
+        className="flex h-svh justify-center items-center"
+        data-testid="missing-env-alert-component">
         <div className="p-4 w-1/3 h-1/3 bg-gray-400 rounded-md flex items-center justify-center">
-          <h4 className=" font-semibold text-xl">Please configure env variables in order to proceed</h4>
+          <h4 className=" font-semibold text-xl">
+            Please configure env variables in order to proceed
+          </h4>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-svh">
+    <div className="h-svh font-roboto">
       <Navbar />
       <div className="bg-slate-300 h-auto">
         <Movies />

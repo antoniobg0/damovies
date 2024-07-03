@@ -33,10 +33,10 @@ const FilterPanel = (): JSX.Element => {
             <DialogPanel
               transition
               className="pointer-events-auto w-screen max-w-md transform transition duration-500 ease-in-out data-[closed]:translate-x-full sm:duration-700">
-              <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                <div className="px-4 sm:px-6">
-                  <div className="flex items-start justify-between">
-                    <DialogTitle className="text-base font-semibold leading-6 text-gray-900">
+              <div className="flex h-full flex-col bg-gray-100  shadow-xl">
+                <div className="sm:px-6 bg-gray-800 py-6 px-4 text-white">
+                  <div className="flex items-start justify-between ">
+                    <DialogTitle className="text-base font-semibold leading-6">
                       Filter options
                     </DialogTitle>
                     <div className="ml-3 flex h-7 items-center">
@@ -51,6 +51,7 @@ const FilterPanel = (): JSX.Element => {
                     </div>
                   </div>
                 </div>
+
                 <div className="relative mt-6 flex-1 px-4 sm:px-6">
                   <div>
                     <label
@@ -99,6 +100,10 @@ const FilterPanel = (): JSX.Element => {
                       </div>
                     </fieldset>
                   </div>
+                </div>
+
+                <div className="bg-gray-800 p-4 text-white">
+                  <h4 className="text-center">DaMuvis</h4>
                 </div>
               </div>
             </DialogPanel>

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import Axios from 'axios';
-import ResponseError from '@/utils/ResponseError';
+import AppError from '@/utils/AppError';
+import { TrophyIcon } from '@heroicons/react/24/outline';
 import { toast } from 'react-toastify';
 
 const axios = Axios.create({
@@ -43,19 +44,24 @@ const useRequest = (): UseRequest => {
     async ({ url, method, body, headers = {} }: Request) => {
       setLoading(true);
 
-      return axios[method](url, body, headers)
-        .then(({ data }): any => {
-          setLoading(false);
+      try {
+        const { data } = await axios[method](url, body, headers);
+        setLoading(false);
 
-          return data;
-        })
-        .catch((err) => {
-          setLoading(false);
+        return data;
+      } catch (err: any) {
+        setLoading(false);
 
-          toast.error("Error ocurred while requesting");
+        const error = new AppError(
+          'Network Error',
+          err.response.data.status_message,
+          err.response.data.status_code
+        );
 
-          throw new ResponseError('Network Error', err.message);
-        });
+        toast.error(error.toString());
+
+        throw error;
+      }
     },
     [setLoading]
   );
